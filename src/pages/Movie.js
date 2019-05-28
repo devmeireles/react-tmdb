@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import api from '../services/api';
 import '../styles/Styles.css';
+import RenderGenrer from '../components/RenderGenrer';
+import RenderCast from '../components/RenderCast';
 
 
 
@@ -11,12 +13,15 @@ export default class Movie extends Component{
 
         this.state = {
             movie:{},
-            genres:{}
+            genres:{},
+            cast:{},
+            crew:{}
         };
     }
 
     async componentDidMount(){
         this.loadFilm();
+        this.loadCast();
     }
 
     componentDidUpdate() {
@@ -41,27 +46,26 @@ export default class Movie extends Component{
         });
     }
 
+    loadCast = async () => {
+        const {id} = this.props.match.params;
+
+        let res = await api.get(`/movie/${id}/credits?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=en-US`);
+        let {data} = await res.data;
+
+        this.setState({
+            cast: res.data.cast,
+            crew: res.data.crew
+        });
+
+        console.log(res.data);
+    }
+
 
     render(){
         const {movie} = this.state;
         const genre = this.state.genres;
-
-        function RenderGenre(props) {
-            const genres = props.genres;
-            let nestedArray = [],
-            resultString;
-            if(genres !== undefined){
-                genres.forEach(function(item){
-                    nestedArray.push(item.name);
-                });
-            }
-
-            resultString = nestedArray.join(', ');
-            
-            return (
-                <span>{resultString}</span>
-            )
-        }
+        const cast = this.state.cast;
+        const crew = this.state.crew;
 
         return(
             <div className="fluid-container filmPage" ref={div => {this.posterPath = div;}}>
@@ -92,7 +96,19 @@ export default class Movie extends Component{
 
                                         <div className="col-12">
                                             {genre.length > 0 &&
-                                                <p><strong>Revenue:</strong> <RenderGenre genres={genre} /></p>
+                                                <p><strong>Revenue:</strong> <RenderGenrer genres={genre} /></p>
+                                            }
+                                        </div>
+
+                                        <div className="col-12">
+                                            {cast.length > 0 &&
+                                                <RenderCast casts={cast} />
+                                            }
+                                        </div>
+
+                                        <div className="col-12">
+                                            {crew.length > 0 &&
+                                                <RenderCast casts={crew} />
                                             }
                                         </div>
                                     </div>
