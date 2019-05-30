@@ -6,6 +6,7 @@ import RenderCast from '../components/RenderCast';
 import RenderTrailers from '../components/RenderTrailers';
 import api from '../services/api';
 import '../styles/Styles.css';
+import RenderKeyWords from '../components/RenderKeyWords';
 
 
 
@@ -18,7 +19,8 @@ export default class Movie extends Component{
             genres:{},
             cast:{},
             crew:{},
-            trailers:{}
+            trailers:{},
+            keyWords:{}
         };
     }
 
@@ -26,6 +28,7 @@ export default class Movie extends Component{
         this.loadFilm();
         this.loadCast();
         this.loadVideos();
+        this.loadKeyWords();
     }
 
     componentDidUpdate() {
@@ -61,14 +64,23 @@ export default class Movie extends Component{
 
     loadVideos = async () => {
         const {id} = this.props.match.params;
-        const response = await api.get(`/movie/${id}/videos?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=en-US`);
+        const res = await api.get(`/movie/${id}/videos?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=en-US`);
         
-        let trailers = response.data.results.filter(function(trailer){
+        let trailers = res.data.results.filter(function(trailer){
             return trailer.type == 'Trailer';
         });
 
         this.setState({
             trailers: trailers
+        });
+    }
+
+    loadKeyWords = async () => {
+        const {id} = this.props.match.params;
+        const res = await api.get(`/movie/${id}/keywords?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=en-US`);
+        
+        this.setState({
+            keyWords: res.data.keywords
         });
     }
 
@@ -79,6 +91,7 @@ export default class Movie extends Component{
         const cast = this.state.cast;
         const crew = this.state.crew;
         const trailers = this.state.trailers;
+        const keyWords = this.state.keyWords;
 
         return(
             <div className="fluid-container">
@@ -102,33 +115,60 @@ export default class Movie extends Component{
                 </div>
 
                 <div className="filmInfo">
-                    <div className="container">
-                        {cast.length > 0 &&
-                            <div className="row castBox mt-2">
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-3">
                                 <div className="col-12">
-                                    <h3 className="text-center mb-4">Principal Cast</h3>
+                                    <p><strong>{movie.title}</strong></p>
+                                    <p><strong>Status:</strong> {movie.status || null}</p>
+                                    <p><strong>Running Time:</strong> {movie.runtime || null} mins</p>
+                                    <p><strong>Release Date:</strong> {movie.release_date || null}</p>
+                                    <p><strong>Budget:</strong> {this.convertToDolar(movie.budget || 0)}</p>
+                                    <p><strong>Revenue:</strong> {this.convertToDolar(movie.revenue || 0)}</p>
                                 </div>
-                                <RenderCast casts={cast} />
-                            </div>
-                        }
 
-                        {crew.length > 0 &&
-                            <div className="row castBox mt-5">
                                 <div className="col-12">
-                                    <h3 className="text-center mb-4 pt-2">Principal Crew</h3>
+                                    {keyWords.length > 0 &&
+                                        <div className="row trailerBox mt-5">
+                                            <div className="col-12">
+                                                <h5 className="mb-4 pt-2">Key Words</h5>
+                                            </div>
+                                            <RenderKeyWords keyWords={keyWords} />
+                                        </div>
+                                    }
                                 </div>
-                                <RenderCast casts={crew} />
                             </div>
-                        }
 
-                        {trailers.length > 0 &&
-                            <div className="row trailerBox mt-5">
-                                <div className="col-12">
-                                    <h3 className="text-center mb-4 pt-2">Trailers</h3>
-                                </div>
-                                <RenderTrailers trailers={trailers} />
+                            <div className="col-8">
+                                {cast.length > 0 &&
+                                    <div className="row castBox mt-2">
+                                        <div className="col-12">
+                                            <h3 className="text-center mb-4">Principal Cast</h3>
+                                        </div>
+                                        <RenderCast casts={cast} />
+                                    </div>
+                                }
+
+                                {crew.length > 0 &&
+                                    <div className="row castBox mt-5">
+                                        <div className="col-12">
+                                            <h3 className="text-center mb-4 pt-2">Principal Crew</h3>
+                                        </div>
+                                        <RenderCast casts={crew} />
+                                    </div>
+                                }
+
+                                {trailers.length > 0 &&
+                                    <div className="row trailerBox mt-5">
+                                        <div className="col-12">
+                                            <h3 className="text-center mb-4 pt-2">Trailers</h3>
+                                        </div>
+                                        <RenderTrailers trailers={trailers} />
+                                    </div>
+                                }
                             </div>
-                        }
+
+                        </div>
                     </div>
                 </div>
             </div>

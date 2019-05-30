@@ -87,3 +87,10 @@ a.nav-link{
     text-decoration: none;
     color: rgb(41, 39, 39);
 }
+
+.keyWords {
+    font-size: 14px !important;
+    background: #fff !important;
+    color: #000 !important;
+    border: 1px solid #5e5b5c;
+}
