@@ -22,6 +22,7 @@ class Navigation extends React.Component {
     this.toggle = this.toggle.bind(this);
 
     this.state = {
+      fixed: false,
       isOpen: false,
       language: 'en-US',
     };
@@ -39,10 +40,25 @@ class Navigation extends React.Component {
     window.location.reload();
   }
 
+  componentDidMount() {
+    document.addEventListener('scroll', () => {
+      if(window.scrollY > 200)  {
+        this.setState({
+          fixed: true
+        });
+      }else{
+        this.setState({
+          fixed: false
+        });
+      }
+    
+    });
+  }
+
   render() {
     return (
       <div>
-      <Navbar color="inverse" inverse toggleable expand="md" className="fixed-top">
+      <Navbar color="inverse" inverse toggleable expand="md" className={this.state.fixed ? 'fixed-menu': 'fixed-top'}>
         <NavbarToggler right onClick={this.toggle}>
           <IoMdMenu color="#FFF" size={30} className="pb-0 pb-md-2" />
         </NavbarToggler>

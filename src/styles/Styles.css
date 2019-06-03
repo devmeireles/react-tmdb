@@ -95,6 +95,26 @@ a.nav-link{
     border: 1px solid #5e5b5c;
 }
 
+.fixed-menu {
+    position: fixed !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.fixed-menu > div:first-of-type {
+    background: #1b1f23;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    transition: all 1s;
+}
+
+.fixed-menu div ul{
+    padding: 20px;
+}
+
 
 @media (max-width: 600px) {
     .filmTitle{
