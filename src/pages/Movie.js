@@ -17,8 +17,8 @@ import MovieList from '../components/MoviesList';
 
 
 export default class Movie extends Component{
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.toggleCast = this.toggleCast.bind(this);
         this.toggleMedia = this.toggleMedia.bind(this);
