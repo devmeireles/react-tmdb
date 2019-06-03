@@ -12,6 +12,8 @@ import {
   DropdownMenu,
   DropdownItem } from 'reactstrap';
 
+import { IoMdMenu } from 'react-icons/io';
+
 
 class Navigation extends React.Component {
   constructor(props) {
@@ -41,7 +43,9 @@ class Navigation extends React.Component {
     return (
       <div>
       <Navbar color="inverse" inverse toggleable expand="md" className="fixed-top">
-        <NavbarToggler right onClick={this.toggle} />
+        <NavbarToggler right onClick={this.toggle}>
+          <IoMdMenu color="#FFF" size={30} className="pb-0 pb-md-2" />
+        </NavbarToggler>
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
