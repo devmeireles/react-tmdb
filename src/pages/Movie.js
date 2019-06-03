@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
 import {Link} from 'react-router-dom';
-import { FaCalendarAlt, FaClock } from 'react-icons/fa';
+import { FaCalendarAlt, FaClock, FaAngleDown } from 'react-icons/fa';
 import RenderGenrer from '../components/RenderGenrer';
 import RenderCast from '../components/RenderCast';
 import RenderTrailers from '../components/RenderTrailers';
@@ -173,6 +173,12 @@ export default class Movie extends Component{
                                 <span className="mr-5"><FaCalendarAlt /> {movie.release_date ? movie.release_date.substring(0,4) : null}</span>
                                 <span className="ml-5"><FaClock /> {movie.runtime ? movie.runtime + " mins" : null}</span>
                             </p>
+                        </div>
+
+                        <div className="col-12">
+                            <div className="d-flex justify-content-center">
+                                <FaAngleDown size={30}/>
+                            </div>
                         </div>
                     </div>
                 </div>
