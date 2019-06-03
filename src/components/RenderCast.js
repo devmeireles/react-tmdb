@@ -23,7 +23,7 @@ class RenderCast extends Component {
         return(
             <div className="row">
                 {casts.slice(0, this.state.visible).map((person, index) => (
-                    <div className="col-2" key={index}>
+                    <div className="col-4 col-md-2" key={index}>
                         <Link to={`/people/${person.id}`} className="linkDefault">
                             <img 
                                 className="rounded mx-auto d-block"

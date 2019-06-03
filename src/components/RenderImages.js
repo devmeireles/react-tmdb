@@ -22,7 +22,7 @@ class RenderImages extends Component {
             <div className="col-12">
                 <div className="row">
                     {images.slice(0, this.state.visible).map((image, index) => (
-                        <div className="col-6 mt-4" key={index}>
+                        <div className="col-12 col-md-6 mt-4" key={index}>
                             <img src={`https://image.tmdb.org/t/p/w500/` + image.file_path} className="img-thumbnail"></img>
                         </div>
                     ))}

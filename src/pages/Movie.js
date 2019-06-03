@@ -161,13 +161,12 @@ export default class Movie extends Component{
             <div className="fluid-container">
                 <div className="filmPage" ref={div => {this.posterPath = div;}}>
                     <div className="filmHeader">
-                        <div className="col-4 ml-5">
+                        <div className="col-12 col-sm-12 col-md-4 ml-0 ml-md-5">
                             <h1 className="filmTitle">{movie.title}</h1>
                             <h2 className="filmTagLine">{movie.tagline ? movie.tagline : null }</h2>
-                            
                         </div>
 
-                        <div className="col-5 ml-5">
+                        <div className="col-12 col-sm-12 col-md-4 ml-0 ml-md-5">
                             <p>{movie.overview}</p>
                             <p><RenderGenrer genres={movie.genres} /></p>
                             <p>
@@ -181,7 +180,7 @@ export default class Movie extends Component{
                 <div className="filmInfo">
                     <div className="container-fluid">
                         <div className="row">
-                            <div className="col-3">
+                            <div className="col-12 col-sm-12 col-md-3">
                                 <div className="col-12">
                                     <p><strong>{movie.title}</strong></p>
                                     <p><strong>Status:</strong> {movie.status || null}</p>
@@ -195,7 +194,7 @@ export default class Movie extends Component{
                                     {keyWords.length > 0 &&
                                         <div className="row keyWordsBox mt-5">
                                             <div className="col-12">
-                                                <h5 className="mb-4 pt-2">Key Words</h5>
+                                                <h5 className="mb-4 pt-2">Keywords</h5>
                                             </div>
                                             <RenderKeyWords keyWords={keyWords} />
                                         </div>
@@ -211,7 +210,7 @@ export default class Movie extends Component{
                                 </div>
                             </div>
 
-                            <div className="col-8">
+                            <div className="col-12 col-sm-12 col-md-8">
                                 <div className="col-12">
                                     <Nav tabs>
                                         <NavItem>
@@ -332,10 +331,10 @@ export default class Movie extends Component{
                                 {movie.id &&
                                 <div className="row pt-5 mt-5">
                                     <div className="col-12">
-                                        <h3 className="text-center pb-4">Similar Movies</h3>
+                                        <h3 className="text-center pb-4">Recommendations</h3>
                                     </div>
                                     <div className="col-12">
-                                        <MovieList type="similar" id={movie.id} />
+                                        <MovieList type="recommendation" id={movie.id} />
                                     </div>
                                 </div>
                                 }

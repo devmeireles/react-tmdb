@@ -22,6 +22,11 @@ class MovieList extends React.Component {
             case 'similar':
                 var response = await api.get(`/movie/${id}/similar?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=en-US&page=${page}`);
             break;
+
+            case 'recommendation':
+                var response = await api.get(`/movie/${id}/recommendations?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=en-US&page=${page}`);
+            break;
+
             default:
                 var response = await api.get(`/trending/movie/day?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=en-US&page=${page}`);
         }
@@ -46,9 +51,9 @@ class MovieList extends React.Component {
 
         const films = results.map((film, index) => {
             return (
-                <div className="film col" key={index}>
+                <div className="film col-6 col-md-3" key={index}>
                     <Link to={`/movie/${film.id}`}>
-                        <img src={"https://image.tmdb.org/t/p/w185/" + film.poster_path} />
+                        <img src={"https://image.tmdb.org/t/p/w185/" + film.poster_path} className="img-fluid" />
                     </Link>
                     <Link to={`/movie/${film.id}`}>
                         <p className="movieListTitle">{film.title}</p>

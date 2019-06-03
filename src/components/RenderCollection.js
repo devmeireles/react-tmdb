@@ -18,12 +18,12 @@ class RenderCollection extends Component {
                         <p>{collection.overview}</p>
                     </div>
 
-                    <div className="col-12">
+                    <div className="row">
                         {parts ?
                             parts.map((film, index) => (
-                                <div className="col-12 pt-3" key={index}>
+                                <div className="col-6 col-md-12 pt-3" key={index}>
                                     <Link to={`/movie/${film.id}`}>
-                                        <img src={"https://image.tmdb.org/t/p/w185/" + film.poster_path} className="rounded mx-auto d-block"/>
+                                        <img src={"https://image.tmdb.org/t/p/w185/" + film.poster_path} className="rounded mx-auto d-block img-fluid"/>
                                         <p className="movieListTitle" style={{color:"#000"}}>{film.title}</p>
                                     </Link>
                                 </div>
