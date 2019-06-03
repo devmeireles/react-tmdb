@@ -1,78 +1,113 @@
 import React from 'react';
-
-const NavItem = props => {
-  const pageURI = window.location.pathname+window.location.search
-  const liClassName = (props.path === pageURI) ? "nav-item active" : "nav-item";
-  const aClassName = props.disabled ? "nav-link disabled" : "nav-link"
-  return (
-    <li className={liClassName}>
-      <a href={props.path} className={aClassName}>
-        {props.name}
-        {(props.path === pageURI) ? (<span className="sr-only">(current)</span>) : ''}
-      </a>
-    </li>
-  );
-}
-
-class NavDropdown extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isToggleOn: false
-    };
-  }
-  showDropdown(e) {
-    e.preventDefault();
-    this.setState(prevState => ({
-      isToggleOn: !prevState.isToggleOn
-    }));
-  }
-  render() {
-    const classDropdownMenu = 'dropdown-menu' + (this.state.isToggleOn ? ' show' : '')
-    return (
-      <li className="nav-item dropdown">
-        <a className="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false"
-          onClick={(e) => {this.showDropdown(e)}}>
-          {this.props.name}
-        </a>
-        <div className={classDropdownMenu} aria-labelledby="navbarDropdown">
-          {this.props.children}
-        </div>
-      </li>
-    )
-  }
-}
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem } from 'reactstrap';
 
 
 class Navigation extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+
+    this.state = {
+      isOpen: false,
+      language: 'en-US',
+    };
+  }
+
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+
+  changeLanguage(language){
+    localStorage.setItem('language', language);
+
+    window.location.reload();
+  }
+
   render() {
     return (
-      <nav className="navbar fixed-top navbar-expand-lg navbar-light">
-        <div className="ml-5">
-          {/* <a className="navbar-brand" href="/">Navbar</a> */}
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
+      <div>
+      <Navbar color="inverse" inverse toggleable expand="md" className="fixed-top">
+        <NavbarToggler right onClick={this.toggle} />
+        <Collapse isOpen={this.state.isOpen} navbar>
+          <Nav className="mr-auto" navbar>
+            <NavItem>
+              <NavLink href="/react-tmdb/">Home</NavLink>
+            </NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Movies
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  Trending
+                </DropdownItem>
+                <DropdownItem>
+                  Upcoming
+                </DropdownItem>
+                <DropdownItem>
+                  Top Rated
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
 
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
-              
-              <NavItem path="/react-tmdb/" name="Home" />
-              <NavItem path="/page2" name="Page2" />
-              <NavItem path="/page3" name="Disabled" disabled="true" />
-              
-                <NavDropdown name="Dropdown">
-                  <a className="dropdown-item" href="/">Action</a>
-                  <a className="dropdown-item" href="/">Another action</a>
-                  <div className="dropdown-divider"></div>
-                  <a className="dropdown-item" href="/">Something else here</a>
-                </NavDropdown>
-              
-            </ul>
-          </div>
-        </div>
-      </nav>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                TV Shows
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  Trending
+                </DropdownItem>
+                <DropdownItem>
+                  Upcoming
+                </DropdownItem>
+                <DropdownItem>
+                  Top Rated
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+
+            <NavItem>
+              <NavLink href="#">Peoples</NavLink>
+            </NavItem>
+          </Nav>
+
+
+          <Nav className="ml-auto" navbar>
+            <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  Language
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem onClick={() => { this.changeLanguage('en-US'); }}>
+                    English
+                  </DropdownItem>
+                  <DropdownItem onClick={() => { this.changeLanguage('es-ES'); }}>
+                    Spanish                    
+                  </DropdownItem>
+                  <DropdownItem onClick={() => { this.changeLanguage('pt-BR'); }}>
+                    Portuguese
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+          </Nav>
+        </Collapse>
+      </Navbar>
+    </div>
     )
   }
 }

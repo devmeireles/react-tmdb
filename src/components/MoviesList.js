@@ -15,20 +15,21 @@ class MovieList extends React.Component {
     }
 
     loadFilms = async (page = 1) => {
+        const language = localStorage.getItem('language');
         const type = this.props.type;
         const id = this.props.id;
 
         switch(type){
             case 'similar':
-                var response = await api.get(`/movie/${id}/similar?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=en-US&page=${page}`);
+                var response = await api.get(`/movie/${id}/similar?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=${language}&page=${page}`);
             break;
 
             case 'recommendation':
-                var response = await api.get(`/movie/${id}/recommendations?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=en-US&page=${page}`);
+                var response = await api.get(`/movie/${id}/recommendations?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=${language}&page=${page}`);
             break;
 
             default:
-                var response = await api.get(`/trending/movie/day?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=en-US&page=${page}`);
+                var response = await api.get(`/trending/movie/day?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=${language}&page=${page}`);
         }
 
         

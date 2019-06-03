@@ -64,7 +64,7 @@ export default class Movie extends Component{
 
     componentDidUpdate() {
         this.posterPath.style.backgroundImage = 'url(http://image.tmdb.org/t/p/original' + this.state.movie.backdrop_path + ')';
-        
+        document.title = 'The Movie DB - '+this.state.movie.title;
     }
 
     shouldComponentUpdate(nextProps) {
@@ -82,8 +82,9 @@ export default class Movie extends Component{
     };
 
     loadFilm = async () => {
+        const language = localStorage.getItem('language');
         const {id} = this.props.match.params;
-        let res = await api.get(`/movie/${id}?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=en-US`);
+        let res = await api.get(`/movie/${id}?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=${language}`);
 
         this.setState({
             movie: res.data,
@@ -96,9 +97,9 @@ export default class Movie extends Component{
     }
 
     loadCast = async () => {
+        const language = localStorage.getItem('language');
         const {id} = this.props.match.params;
-
-        let res = await api.get(`/movie/${id}/credits?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=en-US`);
+        let res = await api.get(`/movie/${id}/credits?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=${language}`);
 
         this.setState({
             cast: res.data.cast,
@@ -107,8 +108,9 @@ export default class Movie extends Component{
     }
 
     loadVideos = async () => {
+        const language = localStorage.getItem('language');
         const {id} = this.props.match.params;
-        const res = await api.get(`/movie/${id}/videos?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=en-US`);
+        const res = await api.get(`/movie/${id}/videos?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=${language}`);
         
         let trailers = res.data.results.filter(function(trailer){
             return trailer.type == 'Trailer';
@@ -120,8 +122,9 @@ export default class Movie extends Component{
     }
 
     loadKeyWords = async () => {
+        const language = localStorage.getItem('language');
         const {id} = this.props.match.params;
-        const res = await api.get(`/movie/${id}/keywords?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=en-US`);
+        const res = await api.get(`/movie/${id}/keywords?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=${language}`);
         
         this.setState({
             keyWords: res.data.keywords
@@ -139,7 +142,8 @@ export default class Movie extends Component{
     }
 
     loadCollection = async (id) => {
-        const res = await api.get(`/collection/${id}?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=en-US`);
+        const language = localStorage.getItem('language');
+        const res = await api.get(`/collection/${id}?api_key=7de1111e4ea9fa0dc45893f3c81297b3&language=${language}`);
         this.setState({
             collection: res.data
         });
