@@ -106,6 +106,22 @@ class Navigation extends React.Component {
                   <DropdownItem onClick={() => { this.changeLanguage('pt-BR'); }}>
                     Portuguese
                   </DropdownItem>
+
+                  <DropdownItem onClick={() => { this.changeLanguage('zh-CN'); }}>
+                    Chinese
+                  </DropdownItem>
+
+                  <DropdownItem onClick={() => { this.changeLanguage('ar-SA'); }}>
+                    Arabic
+                  </DropdownItem>
+
+                  <DropdownItem onClick={() => { this.changeLanguage('ru-RU'); }}>
+                    Russian
+                  </DropdownItem>
+
+                  <DropdownItem onClick={() => { this.changeLanguage('ja-JA'); }}>
+                    Japanese
+                  </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
           </Nav>
