@@ -170,7 +170,7 @@ export default class Movie extends Component{
                             <h2 className="filmTagLine">{movie.tagline ? movie.tagline : null }</h2>
                         </div>
 
-                        <div className="col-12 col-sm-12 col-md-4 ml-0 ml-md-5">
+                        <div className="col-12 col-sm-12 col-md-4 ml-0 ml-md-5 filmOverview">
                             <p>{movie.overview}</p>
                             <p><RenderGenrer genres={movie.genres} /></p>
                             <p>

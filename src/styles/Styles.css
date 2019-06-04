@@ -115,6 +115,11 @@ a.nav-link{
     padding: 20px;
 }
 
+@media (max-height: 700px){
+    .filmOverview{
+        min-width: 70% !important;
+    }
+}
 
 @media (max-width: 600px) {
     .filmTitle{
